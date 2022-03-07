@@ -1,0 +1,8 @@
+name: Finish
+on:
+  - workflow_dispatch
+jobs:
+  build-finish-log:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Finished at `date +"%Y-%m-%d %T"`"

@@ -1,23 +1,21 @@
-name: Optimize Images
+name: Optimize
 on:
-  - create
   - workflow_dispatch
 jobs:
   optimize-images:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
       - name: Set Git config
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
       - name: Merge main to optimize
         run: |
-          git fetch
+          git fetch --unshallow
           git checkout main
           git checkout optimize || git checkout -b optimize
-          git merge main --strategy-option theirs --allow-unrelated-histories -m "Merge main to optimize"
+          git merge main
       - name: Run optimize-images script
         run: |
           npm install
