@@ -24,7 +24,7 @@ jobs:
           npm run optimize-images
       - name: Merge main to optimize
         run: |
-          git add .
+          git add -u .
           git commit -m "optimization" || echo "No changes to commit"
           git push origin HEAD
           

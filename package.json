@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "sharp": "^0.30.2"
-  }
+  },
+  "name": "cms-content-stage",
+  "description": "cms-content-stage",
+  "version": "1.0.0",
+  "main": "",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "optimize-images": "node optimize-images.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yhuang4881/cms-content-stage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yhuang4881/cms-content-stage/issues"
+  },
+  "homepage": "https://github.com/Yhuang4881/cms-content-stage#readme"
 }
