@@ -4,6 +4,7 @@ var sharp = require('sharp');
 
 (async () => {
   const imageFolder = path.join(__dirname, './content/resources/images')
+  if (!fs.existsSync(imageFolder)) return
   const blurFolder = path.join(__dirname, './content/resources/blur')
   const webpFolder = path.join(__dirname, './content/resources/webp-1920')
   const resultFolders = [{folder: blurFolder, extension: 'jpg'}, {folder: webpFolder, extension: 'webp'}]
