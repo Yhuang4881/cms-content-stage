@@ -6,11 +6,11 @@ var sharp = require('sharp');
   const imageFolder = path.join(__dirname, './content/resources/images')
   if (!fs.existsSync(imageFolder)) return //TODO: remove all images
   const blurFolder = path.join(__dirname, './content/resources/blur')
-  const webp200Folder = path.join(__dirname, './content/resources/webp-150')
+  const webp280Folder = path.join(__dirname, './content/resources/webp-280')
   const webp1920Folder = path.join(__dirname, './content/resources/webp-1920')
   const resultFolders = [
     { folder: blurFolder, extension: 'jpg' },
-    { folder: webp200Folder, extension: 'webp' },
+    { folder: webp280Folder, extension: 'webp' },
     { folder: webp1920Folder, extension: 'webp' },
   ]
   const deletePromises = resultFolders.map(({ folder: resultFolder, extension }) => (async () => {
@@ -37,7 +37,7 @@ var sharp = require('sharp');
     try {
       const [, timestamp, outputFilename] = filename.match(/(\d+)-\d+-\d+-(.+)/)
       const blurFilePath = path.join(blurFolder, `${timestamp}-${outputFilename}`) + '.jpg'
-      const webp200FilePath = path.join(webp200Folder, `${timestamp}-${outputFilename}`) + '.webp'
+      const webp280FilePath = path.join(webp280Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const webp1920FilePath = path.join(webp1920Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const instance = sharp(path.join(imageFolder, filename))
       if (!fs.existsSync(blurFilePath)) {
@@ -54,12 +54,12 @@ var sharp = require('sharp');
             if (err) console.error(err)
           });
       }
-      if (!fs.existsSync(webp200FilePath)) {
-        console.log('create ' + webp200FilePath)
+      if (!fs.existsSync(webp280FilePath)) {
+        console.log('create ' + webp280FilePath)
         instance.clone()
           .webp({ effort: 4 })
-          .resize({ width: 200 })
-          .toFile(webp200FilePath, function (err) {
+          .resize({ width: 280 })
+          .toFile(webp280FilePath, function (err) {
             if (err) console.error(err)
           });
       }
