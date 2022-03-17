@@ -6,11 +6,11 @@ var sharp = require('sharp');
   const imageFolder = path.join(__dirname, './content/resources/images')
   if (!fs.existsSync(imageFolder)) return //TODO: remove all images
   const blurFolder = path.join(__dirname, './content/resources/blur')
-  const webp150Folder = path.join(__dirname, './content/resources/webp-150')
+  const webp200Folder = path.join(__dirname, './content/resources/webp-150')
   const webp1920Folder = path.join(__dirname, './content/resources/webp-1920')
   const resultFolders = [
     { folder: blurFolder, extension: 'jpg' },
-    { folder: webp150Folder, extension: 'webp' },
+    { folder: webp200Folder, extension: 'webp' },
     { folder: webp1920Folder, extension: 'webp' },
   ]
   const deletePromises = resultFolders.map(({ folder: resultFolder, extension }) => (async () => {
@@ -37,7 +37,7 @@ var sharp = require('sharp');
     try {
       const [, timestamp, outputFilename] = filename.match(/(\d+)-\d+-\d+-(.+)/)
       const blurFilePath = path.join(blurFolder, `${timestamp}-${outputFilename}`) + '.jpg'
-      const webp150FilePath = path.join(webp150Folder, `${timestamp}-${outputFilename}`) + '.webp'
+      const webp200FilePath = path.join(webp200Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const webp1920FilePath = path.join(webp1920Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const instance = sharp(path.join(imageFolder, filename))
       if (!fs.existsSync(blurFilePath)) {
@@ -54,12 +54,12 @@ var sharp = require('sharp');
             if (err) console.error(err)
           });
       }
-      if (!fs.existsSync(webp150FilePath)) {
-        console.log('create ' + webp150FilePath)
+      if (!fs.existsSync(webp200FilePath)) {
+        console.log('create ' + webp200FilePath)
         instance.clone()
           .webp({ effort: 4 })
-          .resize({ width: 1920 })
-          .toFile(webp150FilePath, function (err) {
+          .resize({ width: 200 })
+          .toFile(webp200FilePath, function (err) {
             if (err) console.error(err)
           });
       }
