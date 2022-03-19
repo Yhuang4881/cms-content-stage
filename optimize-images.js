@@ -39,7 +39,7 @@ var sharp = require('sharp');
       const blurFilePath = path.join(blurFolder, `${timestamp}-${outputFilename}`) + '.jpg'
       const webp280FilePath = path.join(webp280Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const webp1920FilePath = path.join(webp1920Folder, `${timestamp}-${outputFilename}`) + '.webp'
-      const instance = sharp(path.join(imageFolder, filename))
+      const instance = sharp(path.join(imageFolder, filename), { animated: true })
       if (!fs.existsSync(blurFilePath)) {
         console.log('create ' + blurFilePath)
         instance.clone()
@@ -57,7 +57,7 @@ var sharp = require('sharp');
       if (!fs.existsSync(webp280FilePath)) {
         console.log('create ' + webp280FilePath)
         instance.clone()
-          .webp({ effort: 4 })
+          .webp({ effort: 6 })
           .resize({ width: 280 })
           .toFile(webp280FilePath, function (err) {
             if (err) console.error(err)
@@ -66,7 +66,7 @@ var sharp = require('sharp');
       if (!fs.existsSync(webp1920FilePath)) {
         console.log('create ' + webp1920FilePath)
         instance.clone()
-          .webp({ effort: 4 })
+          .webp({ effort: 6 })
           .resize({ width: 1920 })
           .toFile(webp1920FilePath, function (err) {
             if (err) console.error(err)
