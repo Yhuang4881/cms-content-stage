@@ -33,13 +33,14 @@ var sharp = require('sharp');
   })())
   await Promise.all(deletePromises)
   const images = await fs.promises.readdir(imageFolder)
-  images.forEach(filename => {
+  images.forEach(async filename => {
     try {
       const [, timestamp, outputFilename] = filename.match(/(\d+)-\d+-\d+-(.+)/)
       const blurFilePath = path.join(blurFolder, `${timestamp}-${outputFilename}`) + '.jpg'
       const webp280FilePath = path.join(webp280Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const webp1920FilePath = path.join(webp1920Folder, `${timestamp}-${outputFilename}`) + '.webp'
       const instance = sharp(path.join(imageFolder, filename), { animated: true })
+      const metadata = await instance.metadata()
       if (!fs.existsSync(blurFilePath)) {
         console.log('create ' + blurFilePath)
         instance.clone()
@@ -58,7 +59,7 @@ var sharp = require('sharp');
         console.log('create ' + webp280FilePath)
         instance.clone()
           .webp({ effort: 6 })
-          .resize({ width: 280 })
+          .resize({ width: (metadata.width > 280)? 280 : metadata.width })
           .toFile(webp280FilePath, function (err) {
             if (err) console.error(err)
           });
@@ -67,7 +68,7 @@ var sharp = require('sharp');
         console.log('create ' + webp1920FilePath)
         instance.clone()
           .webp({ effort: 6 })
-          .resize({ width: 1920 })
+          .resize({ width: (metadata.width > 1920)? 1920 : metadata.width })
           .toFile(webp1920FilePath, function (err) {
             if (err) console.error(err)
           });
